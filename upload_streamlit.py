@@ -28,8 +28,9 @@ st.write("请填写以下字段，上传图片并点击按钮生成 ZIP 文件�
 
 # 用户输入字段
 case_id = st.text_input("案例编号 (case_id)", "001")
+type = st.selectbox("什么类型作品 (type)", ["文字作品", "美术作品", "摄影作品"])
 label = st.selectbox("是否侵权 (label)", ["侵权", "不侵权", "其它"])
-modification_type = st.text_input("修改类型 (modification_type)", "实质性相似")
+modification_type = st.text_input("侵权类型/方式 (modification_type)", "实质性相似")
 visual_similarity_score = st.slider("视觉相似度评分", 0.0, 1.0, 0.5)
 court = st.text_input("审理法院 (court)", "")
 judgment_date = st.text_input("判决日期 (judgment_date)", "2013")
@@ -59,6 +60,7 @@ if st.button("生成 ZIP 文件"):
             "case_id": f"case_{case_id}",
             "original_image": os.path.basename(original_image_path),
             "disputed_image": os.path.basename(disputed_image_path),
+            "type": type,
             "label": label,
             "modification_type": modification_type,
             "visual_similarity_score": visual_similarity_score,
