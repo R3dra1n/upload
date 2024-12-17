@@ -10,23 +10,23 @@ st.title("JSON 文件生成工具")
 st.write("请填写以下字段，点击按钮生成并下载 JSON 文件。")
 
 # 用户输入字段
-case_id = st.text_input("案例编号 (case_id)", "case_001")
-original_image = st.text_input("原始图片名称 (original_image)", "case_001_original.jpg")
-disputed_image = st.text_input("纠纷图片名称 (disputed_image)", "case_001_disputed.jpg")
-label = st.selectbox("是否侵权 (label)", ["侵权", "不侵权"])
-modification_type = st.text_input("修改类型 (modification_type)", "")
+case_id = st.text_input("案例编号 (case_id)", "001")
+# original_image = st.text_input("原始图片名称 (original_image)", "case_001_original.jpg")
+# disputed_image = st.text_input("纠纷图片名称 (disputed_image)", "case_001_disputed.jpg")
+label = st.selectbox("是否侵权 (label)", ["侵权", "不侵权", "其它"])
+modification_type = st.text_input("修改类型 (modification_type)", "实质性相似")
 visual_similarity_score = st.slider("视觉相似度评分", 0.0, 1.0, 0.5)
 court = st.text_input("审理法院 (court)", "")
-judgment_date = st.date_input("判决日期 (judgment_date)")
+judgment_date = st.text_input("判决日期 (judgment_date)", "2013")
 description = st.text_area("描述信息 (description)", "")
 source = st.text_input("数据来源 (source)", "")
 
 # 按钮生成 JSON 文件并提供下载
 if st.button("生成 JSON 文件"):
     case_data = {
-        "case_id": case_id,
-        "original_image": original_image,
-        "disputed_image": disputed_image,
+        "case_id": f"case_{case_id}",
+        "original_image": f"case_{case_id}_original.jpg",
+        "disputed_image": f"case_{case_id}_disputed.jpg",
         "label": label,
         "modification_type": modification_type,
         "visual_similarity_score": visual_similarity_score,
@@ -44,6 +44,6 @@ if st.button("生成 JSON 文件"):
     st.download_button(
         label="下载 JSON 文件",
         data=json_string,
-        file_name=f"{case_id}.json",
+        file_name=f"case_{case_id}.json",
         mime="application/json"
     )
